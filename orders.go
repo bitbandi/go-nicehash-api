@@ -2,8 +2,8 @@ package nicehash
 
 type Orders struct {
 	Id            uint64 `json:"id"`
-	Type          uint8 `json:"type"`
-	Algo          uint8 `json:"algo"`
+	Type          OrderType `json:"type"`
+	Algo          AlgoType `json:"algo"`
 	Price         float64 `json:"price,string"`
 	Alive         bool `json:"alive"`
 	LimitSpeed    float64 `json:"limit_speed,string"`
@@ -11,7 +11,7 @@ type Orders struct {
 	Workers       uint64 `json:"workers"`
 }
 
-func (client *NicehashClient) GetOrders(algo uint8, location uint8) ([]Orders, error) {
+func (client *NicehashClient) GetOrders(algo AlgoType, location Location) ([]Orders, error) {
 	stats := &struct {
 		Result struct {
 			       Orders []Orders `json:"orders"`
@@ -28,8 +28,8 @@ func (client *NicehashClient) GetOrders(algo uint8, location uint8) ([]Orders, e
 
 type MyOrders struct {
 	Id            uint64 `json:"id"`
-	Type          uint8 `json:"type"`
-	Algo          uint8 `json:"algo"`
+	Type          OrderType `json:"type"`
+	Algo          AlgoType `json:"algo"`
 	Price         float64 `json:"price,string"`
 	BtcAvail      float64 `json:"btc_avail,string"`
 	BtcPaid       float64 `json:"btc_paid,string"`
@@ -44,7 +44,7 @@ type MyOrders struct {
 	End           uint64 `json:"end"`
 }
 
-func (client *NicehashClient) GetMyOrders(algo uint8, location uint8) ([]MyOrders, error) {
+func (client *NicehashClient) GetMyOrders(algo AlgoType, location Location) ([]MyOrders, error) {
 	stats := &struct {
 		Result struct {
 			       Orders []MyOrders `json:"orders"`
@@ -59,7 +59,7 @@ func (client *NicehashClient) GetMyOrders(algo uint8, location uint8) ([]MyOrder
 	return stats.Result.Orders, nil
 }
 
-func (client *NicehashClient) OrderRefill(algo uint8, location uint8, order uint, amount float64) (string, error) {
+func (client *NicehashClient) OrderRefill(algo AlgoType, location Location, order uint, amount float64) (string, error) {
 	stats := &struct {
 		Result struct {
 			       Success string `json:"success"`
@@ -74,7 +74,7 @@ func (client *NicehashClient) OrderRefill(algo uint8, location uint8, order uint
 	return stats.Result.Success, nil
 }
 
-func (client *NicehashClient) OrderRemove(algo uint8, location uint8, order uint) (string, error) {
+func (client *NicehashClient) OrderRemove(algo AlgoType, location Location, order uint) (string, error) {
 	stats := &struct {
 		Result struct {
 			       Success string `json:"success"`
@@ -89,7 +89,7 @@ func (client *NicehashClient) OrderRemove(algo uint8, location uint8, order uint
 	return stats.Result.Success, nil
 }
 
-func (client *NicehashClient) OrderSetPrice(algo uint8, location uint8, order uint, price float32) (string, error) {
+func (client *NicehashClient) OrderSetPrice(algo AlgoType, location Location, order uint, price float32) (string, error) {
 	stats := &struct {
 		Result struct {
 			       Success string `json:"success"`
@@ -104,7 +104,7 @@ func (client *NicehashClient) OrderSetPrice(algo uint8, location uint8, order ui
 	return stats.Result.Success, nil
 }
 
-func (client *NicehashClient) OrderSetPriceDecrease(algo uint8, location uint8, order uint) (string, error) {
+func (client *NicehashClient) OrderSetPriceDecrease(algo AlgoType, location Location, order uint) (string, error) {
 	stats := &struct {
 		Result struct {
 			       Success string `json:"success"`
@@ -119,7 +119,7 @@ func (client *NicehashClient) OrderSetPriceDecrease(algo uint8, location uint8, 
 	return stats.Result.Success, nil
 }
 
-func (client *NicehashClient) OrderSetLimit(algo uint8, location uint8, order uint, limit float32) (string, error) {
+func (client *NicehashClient) OrderSetLimit(algo AlgoType, location Location, order uint, limit float32) (string, error) {
 	stats := &struct {
 		Result struct {
 			       Success string `json:"success"`

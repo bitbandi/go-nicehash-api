@@ -25,12 +25,12 @@ type nicehashHttpClient struct {
 }
 
 type Params struct {
-	Method string `url:"method"`
-	ApiId  string `url:"id,omitempty"`
-	ApiKey string `url:"key,omitempty"`
+	Method   string `url:"method"`
+	ApiId    string `url:"id,omitempty"`
+	ApiKey   string `url:"key,omitempty"`
 	Addr     string `url:"addr,omitempty"`
-	Algo     uint8 `url:"algo"`
-	Location uint8 `url:"location"`
+	Algo     AlgoType `url:"algo,omitempty"`
+	Location Location `url:"location,omitempty"`
 	My       bool `url:"my,omitempty"`
 
 	Order    uint `url:"order,omitempty"`
