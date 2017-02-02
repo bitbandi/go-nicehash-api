@@ -28,6 +28,7 @@ const (
 	AlgoTypeCryptoNight
 	AlgoTypeLbry
 	AlgoTypeEquihash
+	AlgoTypeMAX
 )
 
 func (t AlgoType) ToString() string {
@@ -91,6 +92,7 @@ type Location int
 const (
 	LocationNiceHash Location = iota
 	LocationWestHash
+	LocationMAX
 )
 
 func (t Location) ToString() string {
@@ -108,6 +110,7 @@ type OrderType int
 const (
 	OrderTypeStandard OrderType = iota
 	OrderTypeFixed
+	OrderTypeMAX
 )
 
 func (t OrderType) ToString() string {
