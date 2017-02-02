@@ -16,7 +16,7 @@ func (client *NicehashClient) GetStatsGlobalCurrent() ([]GlobalStats, error) {
 			       Stats []GlobalStats `json:"stats"`
 		       } `json:"result"`
 	}{}
-	params := &Params{Method:"stats.global.current"}
+	params := &Params{Method:"stats.global.current", Algo:AlgoTypeMAX, Location:LocationMAX}
 	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
 		return stats.Result.Stats, err
@@ -31,7 +31,7 @@ func (client *NicehashClient) GetStatsGlobalDay() ([]GlobalStats, error) {
 			       Stats []GlobalStats `json:"stats"`
 		       } `json:"result"`
 	}{}
-	params := &Params{Method:"stats.global.24h"}
+	params := &Params{Method:"stats.global.24h", Algo:AlgoTypeMAX, Location:LocationMAX}
 	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
 		return stats.Result.Stats, err
@@ -53,7 +53,7 @@ func (client *NicehashClient) GetStatsProvider(addr string) ([]ProviderStats, er
 			       Stats []ProviderStats `json:"stats"`
 		       } `json:"result"`
 	}{}
-	params := &Params{Method:"stats.provider", Addr:addr}
+	params := &Params{Method:"stats.provider", Algo:AlgoTypeMAX, Location:LocationMAX, Addr:addr}
 	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
 		return stats.Result.Stats, err

@@ -29,8 +29,8 @@ type Params struct {
 	ApiId    string `url:"id,omitempty"`
 	ApiKey   string `url:"key,omitempty"`
 	Addr     string `url:"addr,omitempty"`
-	Algo     AlgoType `url:"algo,omitempty"`
-	Location Location `url:"location,omitempty"`
+	Algo     AlgoType `url:"algo"`
+	Location Location `url:"location"`
 	My       bool `url:"my,omitempty"`
 
 	Order    uint `url:"order,omitempty"`

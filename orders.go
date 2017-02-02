@@ -17,7 +17,7 @@ func (client *NicehashClient) GetOrders(algo AlgoType, location Location) ([]Ord
 			       Orders []Orders `json:"orders"`
 		       } `json:"result"`
 	}{}
-	params := &Params{Method:"orders.get"}
+	params := &Params{Method:"orders.get", Algo:algo, Location:location}
 	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
 		return stats.Result.Orders, err
@@ -75,10 +75,10 @@ type NewOrder struct {
 func (client *NicehashClient) OrderCreate(order NewOrder) (string, error) {
 	stats := &struct {
 		Result struct {
-				Success string `json:"success"`
-			} `json:"result"`
+			       Success string `json:"success"`
+		       } `json:"result"`
 	}{}
-	params := &Params{Method:"orders.create", ApiId:client.apiid, ApiKey:client.apikey}
+	params := &Params{Method:"orders.create", Algo:AlgoTypeMAX, Location:LocationMAX, ApiId:client.apiid, ApiKey:client.apikey}
 	_, err := client.sling.New().Get("").QueryStruct(params).QueryStruct(order).ReceiveSuccess(&stats)
 	if err != nil {
 		return stats.Result.Success, err

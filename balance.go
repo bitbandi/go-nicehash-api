@@ -9,7 +9,7 @@ func (client *NicehashClient) GetBalance() (Balance, error) {
 	version := &struct {
 		Result Balance `json:"result"`
 	}{}
-	params := &Params{Method:"balance", ApiId:client.apiid, ApiKey:client.apikey}
+	params := &Params{Method:"balance", Algo:AlgoTypeMAX, Location:LocationMAX, ApiId:client.apiid, ApiKey:client.apikey}
 	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&version)
 	if err != nil {
 		return version.Result, err

@@ -1,5 +1,10 @@
 package nicehash
 
+import (
+	"net/url"
+	"fmt"
+)
+
 type AlgoType int
 
 const (
@@ -87,6 +92,13 @@ func (t AlgoType) ToString() string {
 	return "NA"
 }
 
+func (t AlgoType) EncodeValues(key string, v *url.Values) error {
+	if (t != AlgoTypeMAX) {
+		v.Add(key, fmt.Sprint(t))
+	}
+	return nil
+}
+
 type Location int
 
 const (
@@ -103,6 +115,13 @@ func (t Location) ToString() string {
 		return "WestHash";
 	}
 	return "NA"
+}
+
+func (t Location) EncodeValues(key string, v *url.Values) error {
+	if (t != LocationMAX) {
+		v.Add(key, fmt.Sprint(t))
+	}
+	return nil
 }
 
 type OrderType int
