@@ -49,7 +49,7 @@ func TestGetOrders(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	stats, err := nicehashClient.GetOrders(0, 0)
 
 	assert.Nil(t, err)
@@ -114,7 +114,7 @@ func TestGetMyOrders(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	stats, err := nicehashClient.GetMyOrders(0, 0)
 
 	assert.Nil(t, err)
@@ -139,7 +139,7 @@ func TestOrderRefill(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	version, err := nicehashClient.OrderRefill(0, 0, 123, 0.01)
 
 	assert.Nil(t, err)
@@ -163,7 +163,7 @@ func TestOrderRemove(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	version, err := nicehashClient.OrderRemove(0, 0, 123)
 
 	assert.Nil(t, err)
@@ -188,7 +188,7 @@ func TestOrderSetPrice(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	version, err := nicehashClient.OrderSetPrice(0, 0, 123, 2.1)
 
 	assert.Nil(t, err)
@@ -212,7 +212,7 @@ func TestOrderSetPriceDecrease(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	version, err := nicehashClient.OrderSetPriceDecrease(0, 0, 123)
 
 	assert.Nil(t, err)
@@ -237,7 +237,7 @@ func TestOrderSetLimit(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	version, err := nicehashClient.OrderSetLimit(0, 0, 123, 1.0)
 
 	assert.Nil(t, err)

@@ -58,7 +58,7 @@ func TestGetStatsGlobalCurrent(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	stats, err := nicehashClient.GetStatsGlobalCurrent()
 
 	assert.Nil(t, err)
@@ -116,7 +116,7 @@ func TestGetStatsGlobalDay(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	stats, err := nicehashClient.GetStatsGlobalDay()
 
 	assert.Nil(t, err)

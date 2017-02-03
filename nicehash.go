@@ -113,11 +113,14 @@ func (d nicehashHttpClient) dumpResponse(r *http.Response) {
 	}
 }
 
-func NewNicehashClient(client *http.Client, ApiId string, ApiKey string, UserAgent string) *NicehashClient {
+func NewNicehashClient(client *http.Client, BaseURL string, ApiId string, ApiKey string, UserAgent string) *NicehashClient {
+	if len(BaseURL) == 0 {
+		BaseURL = "https://www.nicehash.com/"
+	}
 	nicehashclient := &nicehashHttpClient{client:client, useragent:UserAgent}
 	return &NicehashClient{
 		httpClient: nicehashclient,
-		sling: sling.New().Doer(nicehashclient).Base("https://www.nicehash.com/").Path("/api"),
+		sling: sling.New().Doer(nicehashclient).Base(BaseURL).Path("/api"),
 		apiid: ApiId,
 		apikey: ApiKey,
 	}

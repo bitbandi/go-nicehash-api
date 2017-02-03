@@ -21,7 +21,7 @@ func TestGetVersion(t *testing.T) {
 		fmt.Fprint(w, sampleItem)
 	})
 
-	nicehashClient := NewNicehashClient(httpClient, "FAKEID", "FAKEKEY", "")
+	nicehashClient := NewNicehashClient(httpClient, "", "FAKEID", "FAKEKEY", "")
 	version, err := nicehashClient.GetVersion()
 
 	assert.Nil(t, err)
