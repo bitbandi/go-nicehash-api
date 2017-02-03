@@ -120,7 +120,7 @@ func NewNicehashClient(client *http.Client, BaseURL string, ApiId string, ApiKey
 	nicehashclient := &nicehashHttpClient{client:client, useragent:UserAgent}
 	return &NicehashClient{
 		httpClient: nicehashclient,
-		sling: sling.New().Doer(nicehashclient).Base(BaseURL).Path("/api"),
+		sling: sling.New().Doer(nicehashclient).Base(strings.TrimRight(BaseURL, "/") + "/").Path("api"),
 		apiid: ApiId,
 		apikey: ApiKey,
 	}
