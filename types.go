@@ -33,6 +33,10 @@ const (
 	AlgoTypeCryptoNight
 	AlgoTypeLbry
 	AlgoTypeEquihash
+	AlgoTypePascal
+	AlgoTypeX11Gost
+	AlgoTypeSia
+	AlgoTypeBlake2s
 	AlgoTypeMAX
 )
 
@@ -88,6 +92,14 @@ func (t AlgoType) ToString() string {
 		return "Lbry";
 	case AlgoTypeEquihash:
 		return "Equihash";
+	case AlgoTypePascal:
+		return "Pascal";
+	case AlgoTypeX11Gost:
+		return "X11Gost";
+	case AlgoTypeSia:
+		return "Sia";
+	case AlgoTypeBlake2s:
+		return "Blake2s";
 	}
 	return "NA"
 }
