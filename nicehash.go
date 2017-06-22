@@ -115,7 +115,7 @@ func (d nicehashHttpClient) dumpResponse(r *http.Response) {
 
 func NewNicehashClient(client *http.Client, BaseURL string, ApiId string, ApiKey string, UserAgent string) *NicehashClient {
 	if len(BaseURL) == 0 {
-		BaseURL = "https://www.nicehash.com/"
+		BaseURL = "https://api.nicehash.com/"
 	}
 	nicehashclient := &nicehashHttpClient{client:client, useragent:UserAgent}
 	return &NicehashClient{
