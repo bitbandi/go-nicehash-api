@@ -1,13 +1,13 @@
 package nicehash
 
 type GlobalStats struct {
-	Algo                  uint8 `json:"algo"`
-	ProfitabilityAboveBtc float32 `json:"profitability_above_btc,string"`
-	ProfitabilityAboveLtc float32 `json:"profitability_above_ltc,string"`
-	Price                 float64 `json:"price,string"`
-	ProfitabilityBtc      float32 `json:"profitability_btc,string"`
-	ProfitabilityLtc      float32 `json:"profitability_ltc,string"`
-	Speed                 float64 `json:"speed,string"`
+	Algo                  AlgoType `json:"algo"`
+	ProfitabilityAboveBtc float32  `json:"profitability_above_btc,string"`
+	ProfitabilityAboveLtc float32  `json:"profitability_above_ltc,string"`
+	Price                 float64  `json:"price,string"`
+	ProfitabilityBtc      float32  `json:"profitability_btc,string"`
+	ProfitabilityLtc      float32  `json:"profitability_ltc,string"`
+	Speed                 float64  `json:"speed,string"`
 }
 
 func (client *NicehashClient) GetStatsGlobalCurrent() ([]GlobalStats, error) {
@@ -41,10 +41,10 @@ func (client *NicehashClient) GetStatsGlobalDay() ([]GlobalStats, error) {
 }
 
 type ProviderStats struct {
-	Algo          uint8 `json:"algo"`
-	Balance       float64 `json:"balance,string"`
-	AcceptedSpeed float64 `json:"accepted_speed,string"`
-	RejectedSpeed float64 `json:"rejected_speed,string"`
+	Algo          AlgoType `json:"algo"`
+	Balance       float64  `json:"balance,string"`
+	AcceptedSpeed float64  `json:"accepted_speed,string"`
+	RejectedSpeed float64  `json:"rejected_speed,string"`
 }
 
 func (client *NicehashClient) GetStatsProvider(addr string) ([]ProviderStats, error) {
