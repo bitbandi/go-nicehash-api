@@ -1,7 +1,9 @@
 package nicehash
 
 import (
+	"encoding/json"
 	"errors"
+	"time"
 )
 
 type GlobalStats struct {
@@ -57,21 +59,44 @@ type ProviderStats struct {
 	RejectedSpeed float64  `json:"rejected_speed,string"`
 }
 
-func (client *NicehashClient) GetStatsProvider(addr string) ([]ProviderStats, error) {
+type ProviderPayments struct {
+	Amount float64   `json:"amount,string"`
+	Fee    float64   `json:"fee,string"`
+	TxID   string    `json:"TXID"`
+	Time   time.Time `json:"time"`
+}
+
+func (t *ProviderPayments) UnmarshalJSON(data []byte) error {
+	var err error
+	type Alias ProviderPayments
+	aux := &struct {
+		Time string `json:"time"`
+		*Alias
+	}{
+		Alias: (*Alias)(t),
+	}
+	if err = json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	t.Time, err = time.Parse("2006-01-02 15:04:05", aux.Time)
+	return err
+}
+
+func (client *NicehashClient) GetStatsProvider(addr string) ([]ProviderStats, []ProviderPayments, error) {
 	stats := &struct {
 		Result struct {
 			Error    string             `json:"error"`
 			Stats    []ProviderStats    `json:"stats"`
+			Payments []ProviderPayments `json:"payments"`
 		} `json:"result"`
 	}{}
 	params := &Params{Method: "stats.provider", Algo: AlgoTypeMAX, Location: LocationMAX, Addr: addr}
 	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if stats.Result.Error != "" {
-		return nil, errors.New(stats.Result.Error)
+		return nil, nil, errors.New(stats.Result.Error)
 	}
-	return stats.Result.Stats, nil
+	return stats.Result.Stats, stats.Result.Payments, nil
 }
-
