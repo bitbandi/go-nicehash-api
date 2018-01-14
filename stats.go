@@ -1,5 +1,9 @@
 package nicehash
 
+import (
+	"errors"
+)
+
 type GlobalStats struct {
 	Algo                  AlgoType `json:"algo"`
 	ProfitabilityAboveBtc float32  `json:"profitability_above_btc,string"`
@@ -13,30 +17,36 @@ type GlobalStats struct {
 func (client *NicehashClient) GetStatsGlobalCurrent() ([]GlobalStats, error) {
 	stats := &struct {
 		Result struct {
-			       Stats []GlobalStats `json:"stats"`
-		       } `json:"result"`
+			Error string        `json:"error"`
+			Stats []GlobalStats `json:"stats"`
+		} `json:"result"`
 	}{}
-	params := &Params{Method:"stats.global.current", Algo:AlgoTypeMAX, Location:LocationMAX}
+	params := &Params{Method: "stats.global.current", Algo: AlgoTypeMAX, Location: LocationMAX}
 	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
-		return stats.Result.Stats, err
+		return nil, err
 	}
-
+	if stats.Result.Error != "" {
+		return nil, errors.New(stats.Result.Error)
+	}
 	return stats.Result.Stats, nil
 }
 
 func (client *NicehashClient) GetStatsGlobalDay() ([]GlobalStats, error) {
 	stats := &struct {
 		Result struct {
-			       Stats []GlobalStats `json:"stats"`
-		       } `json:"result"`
+			Error string        `json:"error"`
+			Stats []GlobalStats `json:"stats"`
+		} `json:"result"`
 	}{}
-	params := &Params{Method:"stats.global.24h", Algo:AlgoTypeMAX, Location:LocationMAX}
+	params := &Params{Method: "stats.global.24h", Algo: AlgoTypeMAX, Location: LocationMAX}
 	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
-		return stats.Result.Stats, err
+		return nil, err
 	}
-
+	if stats.Result.Error != "" {
+		return nil, errors.New(stats.Result.Error)
+	}
 	return stats.Result.Stats, nil
 }
 
@@ -50,15 +60,18 @@ type ProviderStats struct {
 func (client *NicehashClient) GetStatsProvider(addr string) ([]ProviderStats, error) {
 	stats := &struct {
 		Result struct {
-			       Stats []ProviderStats `json:"stats"`
-		       } `json:"result"`
+			Error    string             `json:"error"`
+			Stats    []ProviderStats    `json:"stats"`
+		} `json:"result"`
 	}{}
-	params := &Params{Method:"stats.provider", Algo:AlgoTypeMAX, Location:LocationMAX, Addr:addr}
+	params := &Params{Method: "stats.provider", Algo: AlgoTypeMAX, Location: LocationMAX, Addr: addr}
 	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
-		return stats.Result.Stats, err
+		return nil, err
 	}
-
+	if stats.Result.Error != "" {
+		return nil, errors.New(stats.Result.Error)
+	}
 	return stats.Result.Stats, nil
 }
 
