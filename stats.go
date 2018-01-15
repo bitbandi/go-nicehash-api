@@ -25,9 +25,12 @@ func (client *NicehashClient) GetStatsGlobalCurrent() ([]GlobalStats, error) {
 		} `json:"result"`
 	}{}
 	params := &Params{Method: "stats.global.current", Algo: AlgoTypeMAX, Location: LocationMAX}
-	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
+	resp, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
 		return nil, err
+	}
+	if code := resp.StatusCode; code < 200 || 299 < code {
+		return nil, errors.New("Http response: " + resp.Status)
 	}
 	if stats.Result.Error != "" {
 		return nil, errors.New(stats.Result.Error)
@@ -43,9 +46,12 @@ func (client *NicehashClient) GetStatsGlobalDay() ([]GlobalStats, error) {
 		} `json:"result"`
 	}{}
 	params := &Params{Method: "stats.global.24h", Algo: AlgoTypeMAX, Location: LocationMAX}
-	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
+	resp, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
 		return nil, err
+	}
+	if code := resp.StatusCode; code < 200 || 299 < code {
+		return nil, errors.New("Http response: " + resp.Status)
 	}
 	if stats.Result.Error != "" {
 		return nil, errors.New(stats.Result.Error)
@@ -92,9 +98,12 @@ func (client *NicehashClient) GetStatsProvider(addr string) ([]ProviderStats, []
 		} `json:"result"`
 	}{}
 	params := &Params{Method: "stats.provider", Algo: AlgoTypeMAX, Location: LocationMAX, Addr: addr}
-	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
+	resp, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
 		return nil, nil, err
+	}
+	if code := resp.StatusCode; code < 200 || 299 < code {
+		return nil, nil, errors.New("Http response: " + resp.Status)
 	}
 	if stats.Result.Error != "" {
 		return nil, nil, errors.New(stats.Result.Error)
@@ -227,9 +236,12 @@ func (client *NicehashClient) GetStatsProviderEx(addr string) (StatsProviderEx, 
 		Result StatsProviderEx `json:"result"`
 	}{}
 	params := &Params{Method: "stats.provider.ex", Algo: AlgoTypeMAX, Location: LocationMAX, Addr: addr}
-	_, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
+	resp, err := client.sling.New().Get("").QueryStruct(params).ReceiveSuccess(&stats)
 	if err != nil {
 		return StatsProviderEx{}, err
+	}
+	if code := resp.StatusCode; code < 200 || 299 < code {
+		return StatsProviderEx{}, errors.New("Http response: " + resp.Status)
 	}
 	if stats.Result.Error != "" {
 		return StatsProviderEx{}, errors.New(stats.Result.Error)
